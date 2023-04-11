@@ -1,23 +1,29 @@
-# Use an official Node runtime as a parent image
-FROM node:16-alpine
+# Use Node.js v14 as base image
+FROM node:14
 
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files to the container
+# Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code to the container
+# Copy the rest of the app files to the container
 COPY . .
 
 # Build the Angular app
 RUN npm run build
 
-# Expose port 80 for the container
-EXPOSE 4200
+# Use NGINX as the web server
+FROM nginx:latest
 
-# Start the application
-CMD [ "npm", "start" ]
+# Copy the built app files to the default NGINX web root directory
+COPY --from=0 /app/dist/my-app /usr/share/nginx/html
+
+# Expose port 80 to the outside world
+EXPOSE 80
+
+# Start NGINX in the foreground
+CMD ["nginx", "-g", "daemon off;"]
