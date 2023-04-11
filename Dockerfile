@@ -23,7 +23,7 @@ FROM nginx:latest
 COPY --from=0 /app/dist/client /usr/share/nginx/html
 
 # Expose port 4200 to the outside world
-EXPOSE 4200
+EXPOSE 80
 
 # Start NGINX in the foreground
 CMD ["nginx", "-g", "daemon off;"]
