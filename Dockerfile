@@ -22,7 +22,7 @@ FROM nginx:latest
 # Copy the built app files to the default NGINX web root directory
 COPY --from=0 /app/dist/my-app /usr/share/nginx/html
 
-# Expose port 80 to the outside world
+# Expose port 4200 to the outside world
 EXPOSE 4200
 
 # Start NGINX in the foreground
