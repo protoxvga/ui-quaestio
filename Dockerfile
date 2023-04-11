@@ -20,7 +20,7 @@ RUN npm run build
 FROM nginx:latest
 
 # Copy the built app files to the default NGINX web root directory
-COPY --from=0 /app/dist/my-app /usr/share/nginx/html
+COPY --from=0 /app/dist/client /usr/share/nginx/html
 
 # Expose port 4200 to the outside world
 EXPOSE 4200
