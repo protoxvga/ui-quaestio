@@ -1,5 +1,5 @@
 # Use Node.js v14 as base image
-FROM node:14
+FROM node:16
 
 # Set the working directory to /app
 WORKDIR /app
@@ -23,7 +23,7 @@ FROM nginx:latest
 COPY --from=0 /app/dist/my-app /usr/share/nginx/html
 
 # Expose port 80 to the outside world
-EXPOSE 80
+EXPOSE 4200
 
 # Start NGINX in the foreground
 CMD ["nginx", "-g", "daemon off;"]
