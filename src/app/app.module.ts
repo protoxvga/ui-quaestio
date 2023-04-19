@@ -7,12 +7,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
+import { MatchPasswordDirective } from './directives/match-password.directive';
+
 import { LoginPageComponent } from './login-page/login-page.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    LoginComponent,
+    RegisterPageComponent,
+    MatchPasswordDirective,
     LoginPageComponent,
   ],
   imports: [
