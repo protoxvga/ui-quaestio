@@ -21,7 +21,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
