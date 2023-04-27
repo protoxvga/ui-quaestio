@@ -1,4 +1,4 @@
-# Use Node.js v14 as base image
+# Use Node.js v16 as base image
 FROM node:16
 
 # Set the working directory to /app
@@ -16,14 +16,16 @@ COPY . .
 # Build the Angular app
 RUN npm run build
 
-# Use NGINX as the web server
 FROM nginx:latest
 
-# Copy the built app files to the default NGINX web root directory
-COPY --from=0 /app/dist/client /usr/share/nginx/html
+RUN rm -rf /etc/nginx/conf.d
 
-# Expose port 4200 to the outside world
+RUN mkdir -p /etc/nginx/conf.d
+
+COPY ./default.conf /etc/nginx/conf.d/
+
+COPY --from=builder /usr/src/app/dist/client /usr/share/nginx/html
+
 EXPOSE 80
 
-# Start NGINX in the foreground
 CMD ["nginx", "-g", "daemon off;"]
