@@ -30,7 +30,7 @@ export class RegisterService {
 
   /** POST user to login */
   registerUser(user: any): Observable<any> {
-    console.log(typeof user.isExpert);
+
     const body = {
       "firstname": user.firstname,
       "lastname": user.lastname,
