@@ -14,19 +14,11 @@ RUN npm install
 COPY . .
 
 # Build the Angular app
-RUN npm run build
+RUN npm run build --prod
 
-FROM nginx:latest
+FROM nginx:latest AS ngi
 
-RUN rm -rf /etc/nginx/conf.d
-
-RUN mkdir -p /etc/nginx/conf.d
-
-COPY ./default.conf /etc/nginx/conf.d/
-
-# Change this line to match your actual Angular output directory
-COPY --from=build /app/dist/client /usr/share/nginx/html
+COPY --from=build /dist/src/app/dist/client /usr/share/nginx/html
+COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
