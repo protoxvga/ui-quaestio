@@ -24,7 +24,7 @@ RUN mkdir -p /etc/nginx/conf.d
 
 COPY ./default.conf /etc/nginx/conf.d/
 
-COPY --from=builder /usr/src/app/dist/client /usr/share/nginx/html
+COPY --from=0 /app/dist/client /usr/share/nginx/html
 
 EXPOSE 80
 
