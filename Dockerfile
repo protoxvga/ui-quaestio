@@ -1,5 +1,5 @@
 # Use Node.js v16 as base image
-FROM node:16
+FROM node:16 as build
 
 # Set the working directory to /app
 WORKDIR /app
@@ -24,7 +24,8 @@ RUN mkdir -p /etc/nginx/conf.d
 
 COPY ./default.conf /etc/nginx/conf.d/
 
-COPY --from=0 /app/dist/client /usr/share/nginx/html
+# Change this line to match your actual Angular output directory
+COPY --from=build /app/dist/client /usr/share/nginx/html
 
 EXPOSE 80
 
