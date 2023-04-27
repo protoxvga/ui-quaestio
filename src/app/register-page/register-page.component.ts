@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { RegisterService } from '../services/register.service';
+import { LoginService } from '../services/login.service';
 import { LocalService } from '../services/local.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class RegisterPageComponent {
 
   constructor(
     private registerService: RegisterService,
+    private loginService: LoginService,
     private localService: LocalService,
     private router: Router
   ) { }
@@ -38,11 +40,10 @@ export class RegisterPageComponent {
         password: this.form.password
       }
       //call to the loginUser function from the login service
-      /*this.loginService.loginUser(userLogin).subscribe(res => {
-        console.log(res);
+      this.loginService.loginUser(userLogin).subscribe(res => {
         this.localService.saveData("user", res.token);
         this.router.navigate(["home"]);
-      });*/
+      });
     }, err => {
       alert(err.error.message)
     });
