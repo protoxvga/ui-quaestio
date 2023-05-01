@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { MatchPasswordDirective } from './directives/match-password.directive';
 import { LoginPageComponent } from './login-page/login-page.component';
-
+import { CreateQuestionComponent } from './create-question/create-question.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
     RegisterPageComponent,
     MatchPasswordDirective,
     LoginPageComponent,
+    CreateQuestionComponent,
   ],
   imports: [
     BrowserModule,
