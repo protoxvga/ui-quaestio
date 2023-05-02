@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { RegisterService } from '../services/register.service';
-import { LoginService } from '../services/login.service';
+import { AuthService } from "../services/auth.service";
 import { LocalService } from '../services/local.service';
 
 @Component({
@@ -24,15 +23,14 @@ export class RegisterPageComponent {
   };
 
   constructor(
-    private registerService: RegisterService,
-    private loginService: LoginService,
+    private authService: AuthService,
     private localService: LocalService,
     private router: Router
   ) { }
 
   onSubmit(): void {
     //call to the registerUser function from the register service
-    this.registerService.registerUser(this.form).subscribe(res => {
+    this.authService.registerUser(this.form).subscribe(res => {
       //in case the call does not return error
       //create a new user object with just email and password
       const userLogin = {
@@ -40,7 +38,7 @@ export class RegisterPageComponent {
         password: this.form.password
       }
       //call to the loginUser function from the login service
-      this.loginService.loginUser(userLogin).subscribe(res => {
+      this.authService.loginUser(userLogin).subscribe(res => {
         this.localService.saveData("user", res.token);
         this.router.navigate(["home"]);
       });

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { CreateQuestionService } from "../services/create-question.service";
+import { LocalService } from "../services/local.service";
+import { QuestionsService } from "../services/questions.service";
 
 @Component({
   selector: 'app-create-question',
@@ -18,30 +19,34 @@ export class CreateQuestionComponent {
 
   constructor(
       private router: Router,
-      private createQuestionService: CreateQuestionService
-  ) {}
+      private localService: LocalService,
+      private questionsService: QuestionsService
+  ) {
+    //check if user that is trying to create a question is logged in
+    if (localService.getData('user') == null) {
+      //if there is no token saved on localService show an alert and redirect user to login page
+      alert("You need to be legged in to ask a question");
+      router.navigate(['login']);
+    }
+
+    this.questionsService.getQuestions().subscribe(res => {
+      console.log(res)
+      //this.router.navigate(['home']);
+    }, err => {
+      console.log(err)
+    })
+  }
 
   onSubmit(form: NgForm): void {
-    this.createQuestionService.createQuestion(this.form).subscribe(res => {
-      console.log(res);
+    //call the createQuestion function stored on the createQuestionService
+    this.questionsService.createQuestion(this.form).subscribe(res => {
+      //if call success, reset form and redirect to homePage
       form.reset()
-      this.createQuestionService.getQuestions().subscribe(res => {
-        console.log(res)
-      }, err => {
-        console.log(err)
-      })
+      this.router.navigate(['home']);
     }, err => {
+      //if there is an error on creating question show error message and reset form
       alert(err.error.message);
       form.reset();
     })
-    /*this.loginService.loginUser(this.form).subscribe(res => {
-      console.log(res);
-      this.localService.saveData("user", res.token);
-      form.reset();
-      this.router.navigate(["home"]);
-    }, err => {
-      alert(err.error.message)
-      form.reset();
-    });*/
   }
 }
