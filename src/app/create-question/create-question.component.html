@@ -1,0 +1,56 @@
+<div class="container mt-5">
+    <h1 class="mb-4">Ask a Question</h1>
+    <form name="form"
+          #createQuestion="ngForm"
+          (ngSubmit)="createQuestion.form.valid && onSubmit(createQuestion)"
+          novalidate>
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text"
+                   class="form-control"
+                   id="title"
+                   name="title"
+                   placeholder="Enter the title of your question"
+                   [(ngModel)]="form.title"
+                   required
+                   #title="ngModel"
+                   [ngClass]="{ 'is-invalid': createQuestion.submitted && title.errors }"
+            >
+            <div *ngIf="createQuestion.submitted && title.errors" class="invalid-feedback">
+                <div *ngIf="title.errors['required']">Title is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tags">Tags:</label>
+            <input type="text"
+                   class="form-control"
+                   id="tags"
+                   placeholder="Enter tags that describe your question"
+                   name="tags"
+                   [(ngModel)]="form.tag"
+                   #tag="ngModel"
+                   [ngClass]="{ 'is-invalid': createQuestion.submitted && tag.errors }"
+            >
+        </div>
+        <div class="form-group">
+            <label for="body">Body:</label>
+            <textarea class="form-control"
+                      id="body"
+                      rows="10"
+                      placeholder="Enter the details of your question"
+                      name="body"
+                      [(ngModel)]="form.body"
+                      #body="ngModel"
+                      minlength="20"
+                      [ngClass]="{ 'is-invalid':  createQuestion.submitted && body.errors }"
+            ></textarea>
+            <div *ngIf="createQuestion.submitted && body.errors" class="invalid-feedback">
+                <div *ngIf="body.errors['required']">Body is required</div>
+                <div *ngIf="body.errors['minlength']">
+                    Body must be at least 20 characters long
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

@@ -14,19 +14,7 @@ export class RegisterService {
     })
   };
 
-  constructor(
-    private http: HttpClient
-  ) { }
-
-  /*onSubmit(user: any) Observa {
-    console.log(user);
-    this.http.get<any>("https://api-quaestio.pierre-perrin.dev/auth/login", user)
-    .subscribe(res=>{
-      console.log(res);
-      //alert('SIGNIN SUCCESFUL');
-      //this.router.navigate(["login"])
-    })
-  }*/
+  constructor(private http: HttpClient) { }
 
   /** POST user to login */
   registerUser(user: any): Observable<any> {
