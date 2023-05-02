@@ -1,0 +1,74 @@
+<app-nav-bar></app-nav-bar>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col"> <!-- -md-8 -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ question.title }}</h5>
+                    <p class="card-text">{{ question.body }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Asked on {{ question.date }} by {{ question.author }}</small>
+                </div>
+            </div>
+
+            <h3>Answers:</h3>
+
+            <div class="card mb-3" *ngFor="let answer of answers">
+                <div class="card-body">
+                    <p class="card-text">{{ answer.body }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Answered on {{ answer.date }} by Jane Doe</small>
+                    <div class="btn-group float-end" role="group" aria-label="Answer Options">
+                        <button type="button" class="btn btn-outline-secondary"><i class="bi bi-caret-up-fill"></i></button>
+                        <button type="button" class="btn btn-outline-secondary"><i class="bi bi-caret-down-fill"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Answer Form -->
+            <div class="card mb-3" *ngIf="showAnswereForm">
+                <div class="card-body">
+                    <h5 class="card-title">Your Answer</h5>
+                    <form name="form"
+                          #creatAnswer="ngForm"
+                          (ngSubmit)="creatAnswer.form.valid && onSubmit(creatAnswer)"
+                          novalidate>
+                        <div class="mb-3">
+                            <label for="answerBody" class="form-label">Answer</label>
+                            <textarea class="form-control"
+                                      id="answerBody"
+                                      rows="5"
+                                      name="answerBody"
+                                      [(ngModel)]="myAnswer.body"
+                                      #body="ngModel"
+                                      minlength="5"
+                                      [ngClass]="{ 'is-invalid':  creatAnswer.submitted && body.errors }">
+                            </textarea>
+                            <div *ngIf="creatAnswer.submitted && body.errors" class="invalid-feedback">
+                                <div *ngIf="body.errors['required']">Body is required</div>
+                                <div *ngIf="body.errors['minlength']">
+                                    Body must be at least 5 characters long
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Answer</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!--<div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Related Questions</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="#">How to use Bootstrap 5 for responsive web design?</a></li>
+                        <li class="list-group-item"><a href="#">How to create a responsive navbar using Bootstrap 5</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>-->
+    </div>
+</div>
