@@ -1,0 +1,25 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+    <div class="row" *ngFor="let question of questions">
+        <div class="col-lg-8 mx-auto">
+            <div class="card mb-3 w-100 p-0">
+                <div class="card-body">
+                    <h5 class="card-title">{{ question.title }}</h5>
+                    <p class="card-text">{{ question.body }}</p>
+                    <a href="{{ question.href }}" class="btn btn-sm btn-primary">Continue reading</a>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row">
+                        <!--<div class="col-md-6">
+                            <span class="badge bg-primary me-2">10 answers</span>
+                            <span class="badge bg-secondary">50 votes</span>
+                        </div>-->
+                        <div class="text-md-end"> <!-- col-md-6  -->
+                            <span class="text-muted">Asked by: {{ question.author }} on {{ question.date }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
