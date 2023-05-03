@@ -8,10 +8,14 @@ import { LocalService } from '../services/local.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
+  logged= false
   constructor(
       private localService: LocalService,
       private router: Router
-  ) {}
+  ) {
+    if (localService.getData('user') != null)
+      this.logged = true;
+  }
 
   logout() {
     this.localService.clearData();

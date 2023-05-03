@@ -1,24 +1,33 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="/home">Quaestio</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <!--<li class="nav-item">
-                  <a class="nav-link" routerLink="/home">Home</a>
-                </li>-->
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/answered">Answered</a>
+                    <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/questions">Questions</a>
+                    <a class="nav-link" routerLink="/answered" routerLinkActive="active">Answered</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/questions" routerLinkActive="active">Questions</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav ms-auto" *ngIf="logged == true">
                 <li class="nav-item">
                     <a class="nav-link" href="/home" (click)="logout()">Logout</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto" *ngIf="logged == false">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
                 </li>
             </ul>
         </div>
