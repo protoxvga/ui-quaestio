@@ -27,7 +27,10 @@ export class QuestionPageComponent {
   }
   answers = [{
     "body": "",
-    "date": ""
+    "date": "",
+    "upvote": 0,
+    "downvote": 0,
+    "id" : ""
   }]
   myAnswer = {
     "body": ""
@@ -44,47 +47,87 @@ export class QuestionPageComponent {
     }
 
     this.questionsService.getQuestion("644f004420d9f95a5ee428a8").subscribe(res => {
-      this.question.title = res.question.title;
-      this.question.body = res.question.content;
-      this.question.category = res.question.category;
-      let day = res.question.created_at.slice(8,10);
-      let month = this.monthNames[res.question.created_at.slice(5,7) - 1];
-      let year = res.question.created_at.slice(0,4);
-      let hour = res.question.created_at.slice(11,16);
-      this.question.date = month + " " + day + ", " + year + " at " + hour;
-      this.question.author = res.question.author.firstname + " " + res.question.author.lastname
-      if (res.question.answers.length > 0) {
-        for (let i = 0; i < res.question.answers.length; i++) {
-          let day = res.question.answers[i].created_at.slice(8,10);
-          let month = this.monthNames[res.question.answers[i].created_at.slice(5,7) - 1];
-          let year = res.question.answers[i].created_at.slice(0,4);
-          let hour = res.question.answers[i].created_at.slice(11,16);
-          if (this.answers.length == 1 && this.answers[0].body == "") {
-            this.answers[0].body = res.question.answers[i].content;
-            this.answers[0].date = month + " " + day + ", " + year + " at " + hour;
-          } else {
-            let answer = {
-              "body": res.question.answers[i].content,
-              "date": month + " " + day + ", " + year + " at " + hour,
-            }
-            this.answers.push(answer);
-          }
-        }
-      }
-      console.log(res.question.answers)
-      console.log(res.question.author)
-      //this.router.navigate(['home']);
+      this.setQuestionInfo(res.question);
     }, err => {
-      console.log(err)
+      alert(err.error.message);
     })
   }
 
+  setQuestionInfo(question: any): void {
+    this.question.title = question.title;
+    this.question.body = question.content;
+    this.question.category = question.category;
+    let day = question.created_at.slice(8,10);
+    let month = this.monthNames[question.created_at.slice(5,7) - 1];
+    let year = question.created_at.slice(0,4);
+    let hour = question.created_at.slice(11,16);
+    this.question.date = month + " " + day + ", " + year + " at " + hour;
+    this.question.author = question.author.firstname + " " + question.author.lastname
+    this.setAnswersInfo(question.answers);
+  }
+
+  setAnswersInfo(answers: any): void {
+    if (answers.length > 0) {
+      for (let i = 0; i < answers.length; i++) {
+        let day = answers[i].created_at.slice(8,10);
+        let month = this.monthNames[answers[i].created_at.slice(5,7) - 1];
+        let year = answers[i].created_at.slice(0,4);
+        let hour = answers[i].created_at.slice(11,16);
+        let votes = this.getUpAndDownVotes(answers[i].votes);
+        if (this.answers.length == 1 && this.answers[0].body == "") {
+          this.answers[0].body = answers[i].content;
+          this.answers[0].date = month + " " + day + ", " + year + " at " + hour;
+          this.answers[0].id = answers[i]._id;
+          this.answers[0].upvote = votes.upVotes;
+          this.answers[0].downvote = votes.downVotes;
+        } else {
+          let answer = {
+            "body": answers[i].content,
+            "date": month + " " + day + ", " + year + " at " + hour,
+            "upvote": votes.upVotes,
+            "downvote": votes.downVotes,
+            "id": answers[i]._id
+          }
+          this.answers.push(answer);
+        }
+      }
+    }
+  }
+
+  getUpAndDownVotes(answerVotes: any): {upVotes: number, downVotes: number} {
+    let upVotes = 0;
+    let downVotes = 0;
+    for (let j = 0; j < answerVotes.length; j++) {
+      if (answerVotes[j].vote == 1)
+        upVotes++;
+      else
+        downVotes++;
+    }
+    return { upVotes: upVotes, downVotes: downVotes };
+  }
+
   onSubmit(form: NgForm): void  {
-    this.answersService.createQuestion(this.myAnswer, "644f004420d9f95a5ee428a8").subscribe(res => {
+    this.answersService.createAnswer(this.myAnswer, "644f004420d9f95a5ee428a8").subscribe(res => {
       form.reset()
     }, err => {
       alert(err.error.message);
       form.reset();
+    })
+  }
+
+  onUpVote(answer_id: string): void {
+    this.answersService.upVoteAnswer(answer_id).subscribe(res => {
+      window.location.reload();
+    }, err => {
+      alert(err.error.message);
+    })
+  }
+
+  onDownVote(answer_id: string): void {
+    this.answersService.downVoteAnswer(answer_id).subscribe(res => {
+      window.location.reload();
+    }, err => {
+      alert(err.error.message)
     })
   }
 }
