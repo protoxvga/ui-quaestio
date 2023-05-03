@@ -14,19 +14,21 @@
 
             <h3>Answers:</h3>
 
-            <div class="card mb-3" *ngFor="let answer of answers">
-                <div class="card-body">
-                    <p class="card-text">{{ answer.body }}</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Answered on {{ answer.date }} by Jane Doe</small>
-                    <div class="btn-group float-end" role="group" aria-label="Answer Options">
-                        <button type="button" class="btn btn-outline-secondary" (click)="onUpVote(answer.id)">
-                            {{ answer.upvote }} <i class="bi bi-caret-up-fill"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary" (click)="onDownVote(answer.id)">
-                            <i class="bi bi-caret-down-fill"></i> {{ answer.downvote }}
-                        </button>
+            <div *ngIf="showAnswers">
+                <div class="card mb-3" *ngFor="let answer of answers">
+                    <div class="card-body">
+                        <p class="card-text">{{ answer.body }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Answered on {{ answer.date }} by Jane Doe</small>
+                        <div class="btn-group float-end" role="group" aria-label="Answer Options">
+                            <button type="button" class="btn btn-outline-secondary" (click)="onUpVote(answer.id)">
+                                {{ answer.upvote }} <i class="bi bi-caret-up-fill"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="onDownVote(answer.id)">
+                                <i class="bi bi-caret-down-fill"></i> {{ answer.downvote }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -75,5 +75,3 @@ export class AnsweresService {
     return this.http.put(url, null, httpOptions);
   }
 }
-
-//https://api-quaestio.pierre-perrin.dev/answers?id=#question_id
