@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { LoginService } from '../services/login.service';
 import { LocalService } from '../services/local.service';
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-login-page',
@@ -19,14 +19,14 @@ export class LoginPageComponent {
   };
 
   constructor(
-    private loginService: LoginService,
     private localService: LocalService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
   onSubmit(form: NgForm): void {
     //call to the registerUser function from the register service
-    this.loginService.loginUser(this.form).subscribe(res => {
+    this.authService.loginUser(this.form).subscribe(res => {
       //in case the call does not return error
       console.log(res);
       this.localService.saveData("user", res.token);
@@ -37,8 +37,4 @@ export class LoginPageComponent {
       form.reset();
     });
   }
-
-  /*onReset(form: NgForm): void {
-    form.reset();
-  }*/
 }

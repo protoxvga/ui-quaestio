@@ -11,6 +11,8 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { MatchPasswordDirective } from './directives/match-password.directive';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { CreateQuestionComponent } from './create-question/create-question.component';
+import { QuestionPageComponent } from './question-page/question-page.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { CreateQuestionComponent } from './create-question/create-question.compo
     MatchPasswordDirective,
     LoginPageComponent,
     CreateQuestionComponent,
+    QuestionPageComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,
