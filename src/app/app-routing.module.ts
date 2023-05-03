@@ -8,7 +8,7 @@ import { CreateQuestionComponent } from "./create-question/create-question.compo
 import { QuestionPageComponent } from "./question-page/question-page.component";
 
 const routes: Routes = [
-  { path: "", redirectTo:"register", pathMatch:"full" },
+  { path: "", redirectTo:"home", pathMatch:"full" },
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'login', component: LoginPageComponent},
