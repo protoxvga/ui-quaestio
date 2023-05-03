@@ -20,7 +20,7 @@
                         <p class="card-text">{{ answer.body }}</p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Answered on {{ answer.date }} by Jane Doe</small>
+                        <small class="text-muted">Answered on {{ answer.date }} by {{ answer.author }}</small>
                         <div class="btn-group float-end" role="group" aria-label="Answer Options">
                             <button type="button" class="btn btn-outline-secondary" (click)="onUpVote(answer.id)">
                                 {{ answer.upvote }} <i class="bi bi-caret-up-fill"></i>

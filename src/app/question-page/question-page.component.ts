@@ -37,7 +37,8 @@ export class QuestionPageComponent {
     "date": "",
     "upvote": 0,
     "downvote": 0,
-    "id" : ""
+    "id" : "",
+    "author": "",
   }]
   // set up structure to save body of the new answer created by user logged in
   myAnswer = {
@@ -64,6 +65,11 @@ export class QuestionPageComponent {
     this.questionsService.getQuestion(this.id).subscribe(res => {
       //set up question info calling setQuestionInfo function
       this.setQuestionInfo(res.question);
+      /*this.answersService.getAnswers(this.id).subscribe(res => {
+        console.log(res)
+      }, err => {
+        alert(err.error.message);
+      })*/
     }, err => {
       alert(err.error.message);
     })
@@ -92,6 +98,8 @@ export class QuestionPageComponent {
       this.showAnswers = true;
       // check all values from the answers array
       for (let i = 0; i < answers.length; i++) {
+        console.log(answers[i]);
+        console.log(answers[i].author);
         // we divide created_at string to get parts of the info needed
         let day = answers[i].created_at.slice(8,10);
         let month = this.monthNames[answers[i].created_at.slice(5,7) - 1];
@@ -106,6 +114,7 @@ export class QuestionPageComponent {
           this.answers[0].id = answers[i]._id;
           this.answers[0].upvote = votes.upVotes;
           this.answers[0].downvote = votes.downVotes;
+          this.answers[0].author = answers[i].author.firstname + " " + answers[i].author.lastname
         } else {
           // else create a new answer structure to add to list
           let answer = {
@@ -113,7 +122,8 @@ export class QuestionPageComponent {
             "date": month + " " + day + ", " + year + " at " + hour,
             "upvote": votes.upVotes,
             "downvote": votes.downVotes,
-            "id": answers[i]._id
+            "id": answers[i]._id,
+            "author": answers[i].author.firstname + " " + answers[i].author.lastname,
           }
           this.answers.push(answer);
         }
