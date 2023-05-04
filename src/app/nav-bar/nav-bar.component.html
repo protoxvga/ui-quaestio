@@ -7,13 +7,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+                    <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="currentUrl === 'home' ? { exact: true } : { exact: false }">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/answered" routerLinkActive="active">Answered</a>
+                    <a class="nav-link" routerLink="/answered" routerLinkActive="active" [routerLinkActiveOptions]="currentUrl === 'answered' ? { exact: true } : { exact: false }">Answered</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/questions" routerLinkActive="active">Questions</a>
+                    <a class="nav-link" routerLink="/questions" routerLinkActive="active" [routerLinkActiveOptions]="currentUrl === 'questions' ? { exact: true } : { exact: false }">Questions</a>
                 </li>
             </ul>
             <form class="d-flex">
