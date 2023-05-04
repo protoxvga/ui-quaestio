@@ -51,7 +51,7 @@ export class HomeComponent {
     let month = this.monthNames[question.created_at.slice(5,7) - 1];
     let year = question.created_at.slice(0,4);
 
-    // check if is the first value that need to be entered to list
+    // check if is the first value is empty, so add new info in first position of list, else add new question structure to list
     if (this.questions.length == 1 && this.questions[0].body == "" && this.questions[0].title == "") {
       this.questions[0].id = question._id;
       this.questions[0].title = question.title;

@@ -61,21 +61,22 @@ export class QuestionPageComponent {
     if (localService.getData('user') != null)
       this.showAnswereForm = true;
 
-    // call to the questonsService to get the question with the id
+    // call to the questionsService to get the question with the id
     this.questionsService.getQuestion(this.id).subscribe(res => {
-      //set up question info calling setQuestionInfo function
-      this.setQuestionInfo(res.question);
-      /*this.answersService.getAnswers(this.id).subscribe(res => {
-        console.log(res)
+      let question = res.question;
+      // call to answersService to get a list with all the answers for that question
+      this.answersService.getAnswers(this.id).subscribe(res => {
+        //set up question info calling setQuestionInfo function
+        this.setQuestionInfo(question, res.answers);
       }, err => {
         alert(err.error.message);
-      })*/
+      })
     }, err => {
       alert(err.error.message);
     })
   }
 
-  setQuestionInfo(question: any): void {
+  setQuestionInfo(question: any, answers: any): void {
     // get individually all info needed from question and set up to the structure that we have created before
     this.question.title = question.title;
     this.question.body = question.content;
@@ -88,7 +89,7 @@ export class QuestionPageComponent {
     this.question.date = month + " " + day + ", " + year + " at " + hour;
     this.question.author = question.author.firstname + " " + question.author.lastname
     // set up answers list with info using setAnswersInfo function
-    this.setAnswersInfo(question.answers);
+    this.setAnswersInfo(answers);
   }
 
   setAnswersInfo(answers: any): void {
@@ -98,8 +99,6 @@ export class QuestionPageComponent {
       this.showAnswers = true;
       // check all values from the answers array
       for (let i = 0; i < answers.length; i++) {
-        console.log(answers[i]);
-        console.log(answers[i].author);
         // we divide created_at string to get parts of the info needed
         let day = answers[i].created_at.slice(8,10);
         let month = this.monthNames[answers[i].created_at.slice(5,7) - 1];
@@ -161,7 +160,10 @@ export class QuestionPageComponent {
     this.answersService.upVoteAnswer(answer_id).subscribe(res => {
       window.location.reload();
     }, err => {
-      alert(err.error.message);
+      if (err.error.message == "Invalid authorization")
+        alert("You need to be logged in to be able to upvote an answer")
+      else
+        alert(err.error.message);
     })
   }
 
@@ -170,7 +172,10 @@ export class QuestionPageComponent {
     this.answersService.downVoteAnswer(answer_id).subscribe(res => {
       window.location.reload();
     }, err => {
-      alert(err.error.message)
+      if (err.error.message == "Invalid authorization")
+        alert("You need to be logged in to be able to downvote an answer")
+      else
+        alert(err.error.message);
     })
   }
 }
