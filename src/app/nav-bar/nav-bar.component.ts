@@ -14,6 +14,7 @@ export class NavBarComponent {
       private localService: LocalService,
       private router: Router
   ) {
+    // we use the router to get the current url we are, so we can change the navbar active link part for each page
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
         this.currentUrl = event.url.split('/')[1];
