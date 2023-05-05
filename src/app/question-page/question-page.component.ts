@@ -148,6 +148,7 @@ export class QuestionPageComponent {
   onSubmit(form: NgForm): void  {
     // on createAnswer submit, call create answer function from answersService, with the form information, and the id of the question
     this.answersService.createAnswer(this.myAnswer, this.id).subscribe(res => {
+      window.location.reload()
       form.reset()
     }, err => {
       alert(err.error.message);
