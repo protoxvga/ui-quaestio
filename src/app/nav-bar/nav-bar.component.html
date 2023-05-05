@@ -16,10 +16,17 @@
                     <a class="nav-link" routerLink="/questions" routerLinkActive="active" [routerLinkActiveOptions]="currentUrl === 'questions' ? { exact: true } : { exact: false }">Questions</a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light" type="submit">Search</button>
+            <form #searchForm="ngForm" class="d-flex" (ngSubmit)="onSubmit()">
+                <div class="input-group">
+                    <select class="form-select" name="searchType" [(ngModel)]="barSearch.type">
+                        <option value="title">Search by Title</option>
+                        <option value="content">Search by Content</option>
+                    </select>
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="searchTerm" [(ngModel)]="barSearch.term">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </div>
             </form>
+
             <ul class="navbar-nav ms-auto" *ngIf="logged == true">
                 <li class="nav-item">
                     <a class="nav-link" href="/home" (click)="logout()">Logout</a>

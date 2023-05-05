@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { LocalService } from '../services/local.service';
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -10,6 +11,11 @@ import { LocalService } from '../services/local.service';
 export class NavBarComponent {
   logged= false
   currentUrl = ""
+  barSearch = {
+    "type": 'title',
+    "term": ''
+  }
+
   constructor(
       private localService: LocalService,
       private router: Router
@@ -25,5 +31,12 @@ export class NavBarComponent {
 
   logout() {
     this.localService.clearData();
+  }
+
+  onSubmit() {
+    console.log(`Search Type: ${this.barSearch.type}, Search Term: ${this.barSearch.term}`);
+    let type = this.barSearch.type;
+    let term = this.barSearch.term;
+    this.router.navigate(['searchResult', type, term])
   }
 }
