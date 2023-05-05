@@ -26,6 +26,7 @@ export class SearchResultComponent {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
+  // set up type, and term variables to store them once gotten from url
   type: string | null
   term: string | null
 
@@ -34,9 +35,11 @@ export class SearchResultComponent {
       private searchService: SearchService,
       private activatedRoute: ActivatedRoute
   ) {
+    // get the term and type from url, using activatedRoute
     this.type = this.activatedRoute.snapshot.paramMap.get('type');
     this.term = this.activatedRoute.snapshot.paramMap.get('term');
 
+    // divide if the term is title or content, to call either the searchByTitle or searchByContent calls
     if (this.type == 'title') {
       this.searchService.searchByTitle(this.term).subscribe(res => {
         let questions_ = res.questions;
@@ -91,7 +94,7 @@ export class SearchResultComponent {
     }
   }
 
-  // this funcctio will detect each time the search bar is navigating to this url and will reload the view to show
+  // this function will detect each time the search bar is navigating to this url and will reload the view to show
   // the new results of the search
   ngOnInit() {
     this.router.events.subscribe(event => {
