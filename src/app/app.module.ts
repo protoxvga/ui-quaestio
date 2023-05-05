@@ -15,6 +15,7 @@ import { QuestionPageComponent } from './question-page/question-page.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AnsweredPageComponent } from './answered-page/answered-page.component';
 import { AllQuestionsPageComponent } from './all-questions-page/all-questions-page.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AllQuestionsPageComponent } from './all-questions-page/all-questions-pa
     NavBarComponent,
     AnsweredPageComponent,
     AllQuestionsPageComponent,
+    SearchResultComponent,
   ],
   imports: [
     BrowserModule,
