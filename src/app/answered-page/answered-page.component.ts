@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from "@angular/router";
 
-import { QuestionsService } from "../services/questions.service";
+import {QuestionsService} from "../services/questions.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-answered-page',
+  templateUrl: './answered-page.component.html',
+  styleUrls: ['./answered-page.component.css']
 })
-
-export class HomeComponent {
+export class AnsweredPageComponent {
   // set up questions structure to save info and display in html
   questions = [{
     "id": "",
@@ -19,6 +18,7 @@ export class HomeComponent {
     "date": "",
     "author": "",
     "href": "",
+    "answers": ""
   }]
 
   // set up variable of monthsName, to transform from number to month name
@@ -36,8 +36,8 @@ export class HomeComponent {
       let questions_ = res.questions;
       for (let i = 0; i  < questions_.length; i++) {
         // we only want the questions that have not been answered
-        if (questions_[i].answers.length == 0)
-            // call the set QuestionsInfo function to set up info
+        if (questions_[i].answers.length > 0)
+          // call the set QuestionsInfo function to set up info
           this.setQuestionsInfo(questions_[i]);
       }
     }, err => {
@@ -60,6 +60,7 @@ export class HomeComponent {
       this.questions[0].date = month + " " + day + ", " + year;
       this.questions[0].author = question.author.firstname + " " + question.author.lastname;
       this.questions[0].href = "/question/" +question._id;
+      this.questions[0].answers = question.answers.length;
     } else {
       let question_ = {
         "id": question._id,
@@ -69,6 +70,7 @@ export class HomeComponent {
         "date": month + " " + day + ", " + year,
         "author": question.author.firstname + " " + question.author.lastname,
         "href": "/question/" + question._id,
+        "answers": question.answers.length
       }
       this.questions.push(question_);
     }

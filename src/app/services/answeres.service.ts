@@ -37,6 +37,25 @@ export class AnsweresService {
     return this.http.post(url, body, httpOptions);
   }
 
+    /** GET all answers from a question **/
+  getAnswers(question_id: any): Observable<any> {
+      // get token from user logged in and add to Bearer string
+      let token = "Bearer " + this.localService.getData("user")
+      // set up header with token information
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': 'true',
+          'Authorization': token,
+        })
+      };
+      const url = "https://api-quaestio.pierre-perrin.dev/answers?id=" + question_id;
+
+      // return the post call
+      return this.http.get(url, httpOptions);
+    }
+
   /** PUT call to add an upvote to answer **/
   upVoteAnswer(answer_id: any): Observable<any> {
     // get token from user logged in and add to Bearer string

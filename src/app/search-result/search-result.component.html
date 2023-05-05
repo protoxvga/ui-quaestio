@@ -1,5 +1,5 @@
 <app-nav-bar></app-nav-bar>
-<div class="container">
+<div class="container mt-3">
     <div *ngIf="questions[0].title != '' && questions[0].body != ''; else noContent">
         <div class="row" *ngFor="let question of questions">
             <div class="col-lg-8 mx-auto">
@@ -11,7 +11,10 @@
                     </div>
                     <div class="card-footer text-muted">
                         <div class="row">
-                            <div class="text-md-end">
+                            <div class="col-md-6">
+                                <span class="badge bg-primary me-2">{{ question.answers }} answers</span>
+                            </div>
+                            <div class="col-md-6 text-md-end">
                                 <span class="text-muted">Asked by: {{ question.author }} on {{ question.date }}</span>
                             </div>
                         </div>
@@ -24,7 +27,7 @@
         <div class="row">
             <div class="col text-center my-5">
                 <h1>No questions found</h1>
-                <p>We couldn't find any question that has already not been answered.</p>
+                <p>We couldn't find any question that contained {{ term }} inside the {{ type }}.</p>
             </div>
         </div>
     </ng-template>
