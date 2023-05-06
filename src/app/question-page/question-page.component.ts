@@ -64,13 +64,8 @@ export class QuestionPageComponent {
     // call to the questionsService to get the question with the id
     this.questionsService.getQuestion(this.id).subscribe(res => {
       let question = res.question;
-      // call to answersService to get a list with all the answers for that question
-      this.answersService.getAnswers(this.id).subscribe(res => {
-        //set up question info calling setQuestionInfo function
-        this.setQuestionInfo(question, res.answers);
-      }, err => {
-        alert(err.error.message);
-      })
+      //set up question info calling setQuestionInfo function
+      this.setQuestionInfo(question, question.answers);
     }, err => {
       alert(err.error.message);
     })
@@ -80,7 +75,7 @@ export class QuestionPageComponent {
     // get individually all info needed from question and set up to the structure that we have created before
     this.question.title = question.title;
     this.question.body = question.content;
-    this.question.category = question.category;
+    this.question.category = question.category.split(',');
     // we divide created_at string to get parts of the info needed
     let day = question.created_at.slice(8,10);
     let month = this.monthNames[question.created_at.slice(5,7) - 1];
