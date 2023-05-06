@@ -28,13 +28,6 @@ export class CreateQuestionComponent {
       alert("You need to be legged in to ask a question");
       router.navigate(['login']);
     }
-
-    this.questionsService.getQuestions().subscribe(res => {
-      console.log(res)
-      //this.router.navigate(['home']);
-    }, err => {
-      console.log(err)
-    })
   }
 
   onSubmit(form: NgForm): void {
@@ -48,5 +41,10 @@ export class CreateQuestionComponent {
       alert(err.error.message);
       form.reset();
     })
+  }
+
+  onCancel(form: NgForm): void {
+    form.reset();
+    this.router.navigate(['home']);
   }
 }
