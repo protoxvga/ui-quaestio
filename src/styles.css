@@ -2,8 +2,18 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=IBM+Plex+Sans:wght@300&display=swap');
 
 * {
     margin: 0px;
     padding: 0px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+pre, p, span, a {
+    font-family: 'Fira Code', monospace;
+
 }
