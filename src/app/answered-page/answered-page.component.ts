@@ -55,8 +55,8 @@ export class AnsweredPageComponent {
     if (this.questions.length == 1 && this.questions[0].body == "" && this.questions[0].title == "") {
       this.questions[0].id = question._id;
       this.questions[0].title = question.title;
-      this.questions[0].body = question.content.substring(0, 20);
-      this.questions[0].tag = question.category;
+      this.questions[0].body = question.content.substring(0, 100) + " ...";
+      this.questions[0].tag = question.category.split(',');
       this.questions[0].date = month + " " + day + ", " + year;
       this.questions[0].author = question.author.firstname + " " + question.author.lastname;
       this.questions[0].href = "/question/" +question._id;
@@ -65,8 +65,8 @@ export class AnsweredPageComponent {
       let question_ = {
         "id": question._id,
         "title": question.title,
-        "body": question.content.substring(0, 20),
-        "tag": question.category,
+        "body": question.content.substring(0, 100) + " ...",
+        "tag": question.category.split(','),
         "date": month + " " + day + ", " + year,
         "author": question.author.firstname + " " + question.author.lastname,
         "href": "/question/" + question._id,

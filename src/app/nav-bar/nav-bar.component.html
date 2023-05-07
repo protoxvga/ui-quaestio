@@ -29,6 +29,9 @@
 
             <ul class="navbar-nav ms-auto" *ngIf="logged == true">
                 <li class="nav-item">
+                    <a class="nav-link" href="/createQuestion" routerlink="createQuestion">Create Question</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/home" (click)="logout()">Logout</a>
                 </li>
             </ul>
